@@ -1,0 +1,25 @@
+name: Compute next version
+description: Computes the next version based on current year, ISO week number and existing tags from git.
+inputs:
+  prefix:
+    description: Version prefix
+    required: false
+    default: v
+  prerelease:
+    description: Add and increment a pre-release version counter
+    required: false
+    default: false
+  prerelease-prefix:
+    description: The pre-release version part prefix
+    required: false
+    default: rc.
+outputs:
+  time:
+    description: The computed version
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.prefix }}
+    - ${{ inputs.prerelease }}
+    - ${{ inputs.prerelease-prefix }}
