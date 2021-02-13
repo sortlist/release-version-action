@@ -14,7 +14,7 @@ function compute_version() {
   local preprefix=$3
 
   local next="${prefix}$(base_version)"
-  local inc=$($GIT_LIST_TAGS_COMMAND "${next}.*" | grep -v '\-.*[0-9]\+$' --count)
+  local inc=$($GIT_LIST_TAGS_COMMAND "${next}.*" | grep -v '\-.*[0-9]\+$' --count ||:)
   inc=$(($inc+1))
 
   if [ "$prerelease" = true ]
