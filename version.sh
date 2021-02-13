@@ -2,6 +2,8 @@
 
 set -e
 
+GIT_LIST_TAGS_COMMAND=${GIT_LIST_TAGS_COMMAND:-"git ls-remote --tags --refs -q origin"}
+
 function base_version() {
   echo $(date +%G.%-V)
 }
@@ -12,16 +14,14 @@ function compute_version() {
   local preprefix=$3
 
   local next="${prefix}$(base_version)"
-
-  git fetch origin "refs/tags/$next*:refs/tags/$next*"
-
-  local inc=$(git tag --list "${next}.*" | grep -v '\-.*[0-9]\+$' --count)
+  local inc=$($GIT_LIST_TAGS_COMMAND "${next}.*" | grep -v '\-.*[0-9]\+$' --count)
   inc=$(($inc+1))
 
   if [ "$prerelease" = true ]
   then
     next="${next}.${inc}"
-    rc=$(($(git tag --list "${next}-${preprefix}*" | wc -l)+1))
+    rc=$($GIT_LIST_TAGS_COMMAND "${next}-${preprefix}*" | wc -l)
+    rc=$(($rc+1))
     echo "${next}-${preprefix}${rc}"
   else
     echo "${next}.${inc}"
