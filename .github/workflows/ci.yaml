@@ -17,6 +17,3 @@ jobs:
 
       - name: Test
         run: bats -r .
-
-      - name: Build docker image
-        run: docker build .
