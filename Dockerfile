@@ -1,6 +1,6 @@
 FROM alpine:3.13
 
-RUN apk add --no-cache grep git
+RUN apk add --no-cache grep git bash
 
 # Use the GitHub Actions uid:gid combination for proper fs permissions
 RUN addgroup -g 116 -S github && adduser -u 1001 -S -g github github
