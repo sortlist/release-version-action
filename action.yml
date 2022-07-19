@@ -14,12 +14,12 @@ inputs:
     required: false
     default: rc.
 outputs:
-  time:
+  version:
     description: The computed version
+    value: ${{ steps.compute-next-version.outputs.version }}
 runs:
-  using: docker
-  image: Dockerfile
-  args:
-    - ${{ inputs.prefix }}
-    - ${{ inputs.prerelease }}
-    - ${{ inputs.prerelease-prefix }}
+  using: 'composite'
+  steps:
+    - id: compute-next-version
+      shell: bash
+      run: ${{ github.action_path }}/version.sh "${{ inputs.prefix }}" "${{ inputs.prerelease }}" "${{ inputs.prerelease-prefix }}"
