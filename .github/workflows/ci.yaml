@@ -2,8 +2,8 @@ name: CI
 on: [push]
 
 jobs:
-  build:
-    name: build
+  tests:
+    name: tests and linters
     runs-on: ubuntu-latest
 
     steps:
@@ -17,3 +17,6 @@ jobs:
 
       - name: Test
         run: bats -r .
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
