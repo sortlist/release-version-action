@@ -45,3 +45,9 @@ jobs:
 ## Outputs
 
 * `version` - will contain the computed version
+
+## Tests
+
+```bash
+LC_CTYPE=C ./test/test.bats
+```
