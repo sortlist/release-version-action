@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
 if [[ -z "$GIT_LIST_TAGS_COMMAND" ]]; then
   GIT_LIST_TAGS_COMMAND=( "git" "ls-remote" "--tags" "--refs" "-q" "origin" )
 else
+  # shellcheck disable=SC2128
   IFS=' ' read -r -a GIT_LIST_TAGS_COMMAND <<<"$GIT_LIST_TAGS_COMMAND"
 fi
 
