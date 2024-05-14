@@ -21,7 +21,7 @@ compute_version() {
   preprefix=$3
 
   next="${prefix}$(base_version)"
-  inc=$("${GIT_LIST_TAGS_COMMAND[@]}" "${next}.*" | grep -v '\-.*[0-9]\+$' --count ||:)
+  inc=$("${GIT_LIST_TAGS_COMMAND[@]}" "${next}.*" | grep -v "\-${preprefix}[0-9]\+$" --count ||:)
   inc=$((inc+1))
 
   if [ "$prerelease" = true ]
